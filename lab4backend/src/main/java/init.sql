@@ -1,0 +1,19 @@
+CREATE SEQUENCE user_seq START WITH 1 INCREMENT BY 1;
+
+CREATE SEQUENCE point_seq START WITH 1 INCREMENT BY 1;
+
+CREATE TABLE users (
+    id NUMBER PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE point (
+   id NUMBER PRIMARY KEY,
+   x NUMBER NOT NULL,
+   y NUMBER NOT NULL,
+   r NUMBER NOT NULL,
+   hit NUMBER(1) NOT NULL CHECK(hit in (0, 1)),
+   userId NUMBER NOT NULL,
+   FOREIGN KEY (userId) references users(id)
+);

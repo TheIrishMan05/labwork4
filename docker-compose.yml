@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  database:
+    image:  gvenzl/oracle-free
+    container_name: oracle-db
+    environment:
+      ORACLE_PASSWORD: password
+      ORACLE_DATABASE: FREE
+      ORACLE_USER: system
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle-data:/opt/oracle/oradata
+
+  backend:
+    build:
+      context: ./lab4backend
+      dockerfile: Dockerfile
+    container_name: spring-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:oracle:thin:@//database:1521/FREE
+      SPRING_DATASOURCE_USERNAME: system
+      SPRING_DATASOURCE_PASSWORD: password
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+
+  frontend:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    container_name: vue-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+
+volumes:
+  oracle-data:

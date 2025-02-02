@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="se.ifmo.weblab4.Weblab4ApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-02-01T15:14:06" hostname="LAPTOP-5VCSDG1J" time="1.206">
+  <properties/>
+  <testcase name="contextLoads()" classname="se.ifmo.weblab4.Weblab4ApplicationTests" time="1.206"/>
+  <system-out><![CDATA[18:14:02.875 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [se.ifmo.weblab4.Weblab4ApplicationTests]: Weblab4ApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+18:14:03.072 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration se.ifmo.weblab4.Weblab4Application for test class se.ifmo.weblab4.Weblab4ApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.2)
+
+2025-02-01T18:14:03.690+03:00  INFO 39220 --- [weblab4] [    Test worker] s.ifmo.weblab4.Weblab4ApplicationTests   : Starting Weblab4ApplicationTests using Java 17.0.8 with PID 39220 (started by grigo in C:\study\labs\web\weblab4)
+2025-02-01T18:14:03.692+03:00  INFO 39220 --- [weblab4] [    Test worker] s.ifmo.weblab4.Weblab4ApplicationTests   : No active profile set, falling back to 1 default profile: "default"
+2025-02-01T18:14:05.579+03:00  INFO 39220 --- [weblab4] [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2025-02-01T18:14:06.499+03:00  INFO 39220 --- [weblab4] [    Test worker] s.ifmo.weblab4.Weblab4ApplicationTests   : Started Weblab4ApplicationTests in 3.174 seconds (process running for 4.96)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
