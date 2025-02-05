@@ -1,11 +1,13 @@
 import {createRouter, createWebHistory} from 'vue-router';
 import {useAuthStore} from "@/auth";
-import StartPage from "@/components/startPage.vue";
-import MainPage from "@/components/mainPage.vue";
+import StartPage from "@/components/StartPage.vue";
+import MainPage from "@/components/MainPage.vue";
+import RegisterPage from "@/components/RegisterPage.vue";
 
 const routes = [
-    {path: "/", component: StartPage},
+    {path: "/login", component: StartPage},
     {path: "/main", component: MainPage, meta: {obligatoryAuth: true}},
+    {path: "/", component: RegisterPage},
 ];
 
 const router = createRouter({
@@ -21,9 +23,6 @@ router.beforeEach(async (to, from, next) => {
         } catch (err) {
             return next("/");
         }
-    }
-    if (to.meta.obligatoryAuth && !authStore.user) {
-        return next("/")
     }
     next();
 })

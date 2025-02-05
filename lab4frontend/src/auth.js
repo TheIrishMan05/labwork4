@@ -5,6 +5,7 @@ import axios from 'axios';
 export const useAuthStore = defineStore('auth', () => {
     const user = ref(null);
     const error = ref(null);
+    let tokenStorage = localStorage.getItem("token") || [];
 
     const fetchUser = async () => {
         try {
@@ -24,22 +25,29 @@ export const useAuthStore = defineStore('auth', () => {
                     username: credentials.username,
                     password: credentials.password,
                 }),
-                {headers: {'Content-Type': 'application-x-www-form-urlencoded'}});
-            if (response.status === 200 && response.data === "Вход был успешно выполнен") {
+                { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
+
+            if (response.status === 200) {
+                tokenStorage.push(response.data);
+                localStorage.setItem("token", JSON.stringify(tokenStorage));
                 await fetchUser();
+                return { success: true };
             } else {
                 throw new Error("Неверный логин или пароль");
             }
         } catch (err) {
+            console.log(err);
             error.value = err.response?.data?.message || "Ошибка входа.";
+            return { success: false, message: error.value };
         }
     }
 
     const logout = async () => {
         try {
-            await axios.post("http://localhost:8000/auth/logout");
+            localStorage.removeItem("token");
             user.value = null;
             error.value = null;
+            return {success: true };
         } catch (err) {
             error.value = err.response?.data?.message || "Ошибка выхода.";
         }
@@ -52,16 +60,30 @@ export const useAuthStore = defineStore('auth', () => {
                     username: userData.username,
                     password: userData.password,
                 }),
-                {headers: {'Content-Type': 'application/x-www-form-urlencoded'}});
-            if (response.status === 201 && response.data === "Регистрация прошла успешно") {
-                await login({username: userData.username, password: userData.password});
+                { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } }
+            );
+
+            if (response.status === 200) {
+                await login({ username: userData.username, password: userData.password });
+                return { success: true, message: "Регистрация прошла успешно" };
             } else {
                 throw new Error("Ошибка регистрации");
             }
         } catch (err) {
-            error.value = err.response?.data?.message || "Ошибка регистрации.";
+            console.log(err);
+            if (err.response) {
+                if (err.response.status === 409) {
+                    return { success: false, message: "Пользователь с таким именем уже существует." };
+                }
+                error.value = err.response.data?.message || "Ошибка регистрации.";
+            } else {
+                console.log(err.response);
+                error.value = "Ошибка сети.";
+            }
+            return { success: false, message: error.value };
         }
     }
+
 
     return {user, error, login, logout, fetchUser, register};
 });
