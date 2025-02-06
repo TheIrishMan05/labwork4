@@ -60,7 +60,7 @@ export default {
       try {
         const result = await authStore.login({ username: username.value, password: password.value });
         if (result.success) {
-          router.push("/main");
+          await router.push("/main");
         } else {
           error.value = result.message;
         }

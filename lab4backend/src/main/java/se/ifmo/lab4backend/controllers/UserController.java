@@ -1,5 +1,6 @@
 package se.ifmo.lab4backend.controllers;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,22 +17,19 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
+@Log4j2
 public class UserController {
     private UserService userService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
-        this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<String> registerUser(@RequestBody User user) {
+        log.info("Registering user: " + user);
         try {
-            User user = new User();
-            user.setUsername(username);
-            user.setPassword(bCryptPasswordEncoder.encode(password));
             userService.registerUser(user);
             return ResponseEntity.ok("User registered successfully");
         } catch (BadCredentialsException e) {
@@ -40,11 +38,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<String> login(@RequestBody User user) {
+        log.info(user.toString());
         try {
-            User user = new User();
-            user.setUsername(username);
-            user.setPassword(bCryptPasswordEncoder.encode(password));
             Optional<String> jwt = userService.login(user);
             if(jwt.isEmpty()) {
                 throw new BadCredentialsException("Invalid username or password");

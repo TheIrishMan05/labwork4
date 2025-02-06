@@ -19,11 +19,13 @@ import java.util.Optional;
 public class UserService {
     private JwtTokenUtil jwtTokenUtil;
     private NamedParameterJdbcTemplate template;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     public UserService(JwtTokenUtil jwtTokenUtil, NamedParameterJdbcTemplate template) {
         this.jwtTokenUtil = jwtTokenUtil;
         this.template = template;
+        this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
     }
 
     public Optional<User> findByUsername(String username) {
@@ -46,7 +48,7 @@ public class UserService {
         SqlParameterSource source = new MapSqlParameterSource()
                 .addValue("id", newId)
                 .addValue("username", user.getUsername())
-                .addValue("password", user.getPassword());
+                .addValue("password", bCryptPasswordEncoder.encode(user.getPassword()));
         template.update(sql, source);
     }
 

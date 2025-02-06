@@ -45,7 +45,7 @@
     </div>
     <div class="form-group">
     <label for="select-r">Выберите R:</label>
-      <select v-model="r" id="select-r">
+      <select v-model="r" @change="updatePlot" id="select-r">
         <option id="r(0)" name="R-option" value="0">
           0
         </option>
@@ -73,7 +73,6 @@
 
 <script>
 import LogoutButton from "@/components/main_page_components/LogoutButton.vue";
-
 export default {
   name: "FormComponent",
   components: {LogoutButton},

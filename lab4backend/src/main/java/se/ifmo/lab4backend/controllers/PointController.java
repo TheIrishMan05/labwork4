@@ -26,24 +26,20 @@ public class PointController {
     }
 
     @GetMapping("/user")
-    public List<Point> getAllPoints() {
+    public ResponseEntity<List<Point>> getAllPoints() {
         List<Point> points = pointService.getPointsByUserId();
         log.info(points.size() + ": amount of points for current user");
-        return points;
+        return ResponseEntity.ok(points);
     }
 
     @PostMapping("/add")
-    public Point insert(@RequestParam double x, @RequestParam double y, @RequestParam double r) {
-        Point point = new Point();
-        point.setX(x);
-        point.setY(y);
-        point.setR(r);
+    public ResponseEntity<String> insert(@RequestBody Point point) {
         log.info("Insert point: " + point);
         if(validator.validate(point)) {
             pointService.insert(point);
-            return point;
+            return ResponseEntity.ok(point.toString());
         } else {
-            throw new RuntimeException("Невалидная точка.");
+            return ResponseEntity.badRequest().body("Invalid Point");
         }
     }
 
