@@ -45,7 +45,7 @@
     </div>
     <div class="form-group">
     <label for="select-r">Выберите R:</label>
-      <select v-model="r" @change="updatePlot" id="select-r">
+      <select v-model="r" id="select-r" @change="updatePlot">
         <option id="r(0)" name="R-option" value="0">
           0
         </option>
@@ -94,6 +94,7 @@ export default {
         r: parseFloat(this.r)
       });
 
+      this.updatePlot();
       this.x = null;
       this.y = '';
       this.r = null;
@@ -124,8 +125,8 @@ export default {
     },
 
     updatePlot() {
-      if (!(this.r >= 0 && this.r <= 3)) {
-        this.errorMessage = 'R должен быть числом от 0 до 3.';
+      if (!(this.r >= 0 && this.r <= 2)) {
+        this.errorMessage = 'R должен быть числом от 0 до 2.';
         return;
       }
 

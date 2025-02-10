@@ -24,8 +24,7 @@
             @submit-data="handleSubmit"
             @update-plot="updatePlot"
         />
-        <CanvasComponent :points="points" :value-r="currentR" @submit-data="handleSubmit"/>
-        <div v-if="error" class="error">{{ error }}</div>
+        <CanvasComponent ref="canvasComponent" :points="points" :value-r="currentR" @submit-data="handleSubmit"/>
       </div>
     <TableComponent :points="points"/>
     <div class="footer">
@@ -46,12 +45,13 @@ export default {
   components: {TableComponent, CanvasComponent, FormComponent},
   data() {
     return {
-      currentR: '',
+      currentR: null,
       points: []
     };
   },
   methods: {
     async handleSubmit(data) {
+      this.$refs.canvasComponent.drawPoint(data.x, data.y, data.r);
       const response = await axios.post('http://localhost:8000/api/add', data);
       if(response.status === 200) {
         const newPoint = response.data;
@@ -219,9 +219,5 @@ body {
   width: 100%;
 }
 
-.error {
-  border-radius: 3px;
-  background-color: firebrick;
-}
 
 </style>
