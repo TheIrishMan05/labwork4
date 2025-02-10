@@ -23,7 +23,8 @@ repositories {
 }
 
 dependencies {
-    implementation 'org.springframework:spring-jdbc:7.0.0-M1'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.hibernate.orm:hibernate-core:6.4.2.Final'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     compileOnly 'org.projectlombok:lombok'

@@ -17,6 +17,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import se.ifmo.lab4backend.components.AuthFilter;
 import se.ifmo.lab4backend.components.JwtFilter;
+import se.ifmo.lab4backend.repositories.UserRepository;
 import se.ifmo.lab4backend.services.JwtTokenUtil;
 import se.ifmo.lab4backend.services.UserService;
 
@@ -27,16 +28,16 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtTokenUtil jwtTokenUtil;
-    private final UserService userService;
+    private final UserRepository userRepository;
 
-    public SecurityConfig(JwtTokenUtil jwtTokenUtil, UserService userService) {
+    public SecurityConfig(JwtTokenUtil jwtTokenUtil, UserRepository userRepository) {
         this.jwtTokenUtil = jwtTokenUtil;
-        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return username -> (UserDetails) userService.findByUsername(username)
+        return username -> (UserDetails) userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + username));
     }
 

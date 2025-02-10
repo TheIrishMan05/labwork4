@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="se.ifmo.lab4backend.Lab4BackendApplicationTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2025-02-10T21:01:49" hostname="LAPTOP-5VCSDG1J" time="1.191">
+  <properties/>
+  <testcase name="contextLoads()" classname="se.ifmo.lab4backend.Lab4BackendApplicationTests" time="1.191"/>
+  <system-out><![CDATA[00:01:36.712 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [se.ifmo.lab4backend.Lab4BackendApplicationTests]: Lab4BackendApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+00:01:36.847 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration se.ifmo.lab4backend.Lab4BackendApplication for test class se.ifmo.lab4backend.Lab4BackendApplicationTests
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v3.4.2)
+
+2025-02-11T00:01:37.369+03:00  INFO 64168 --- [weblab4] [    Test worker] s.i.l.Lab4BackendApplicationTests        : Starting Lab4BackendApplicationTests using Java 17.0.8 with PID 64168 (started by grigo in C:\study\labs\web\labwork4\lab4backend)
+2025-02-11T00:01:37.371+03:00  INFO 64168 --- [weblab4] [    Test worker] s.i.l.Lab4BackendApplicationTests        : No active profile set, falling back to 1 default profile: "default"
+2025-02-11T00:01:38.290+03:00  INFO 64168 --- [weblab4] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-11T00:01:38.361+03:00  INFO 64168 --- [weblab4] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 57 ms. Found 2 JPA repository interfaces.
+2025-02-11T00:01:39.079+03:00  INFO 64168 --- [weblab4] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-11T00:01:39.143+03:00  INFO 64168 --- [weblab4] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.2.Final
+2025-02-11T00:01:39.182+03:00  INFO 64168 --- [weblab4] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-11T00:01:39.488+03:00  INFO 64168 --- [weblab4] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-11T00:01:39.541+03:00  INFO 64168 --- [weblab4] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-11T00:01:40.556+03:00  INFO 64168 --- [weblab4] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@7d977a20
+2025-02-11T00:01:40.560+03:00  INFO 64168 --- [weblab4] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-11T00:01:40.839+03:00  WARN 64168 --- [weblab4] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-11T00:01:42.667+03:00 DEBUG 64168 --- [weblab4] [    Test worker] org.hibernate.SQL                        : 
+    create global temporary table HTE_users(rn_ number(10, 0) not null, id number(19, 0), password varchar2(255 char), username varchar2(255 char), primary key (rn_)) 
+        on commit delete rows
+Hibernate: 
+    create global temporary table HTE_users(rn_ number(10, 0) not null, id number(19, 0), password varchar2(255 char), username varchar2(255 char), primary key (rn_)) 
+        on commit delete rows
+2025-02-11T00:01:42.985+03:00 DEBUG 64168 --- [weblab4] [    Test worker] org.hibernate.SQL                        : 
+    create global temporary table HTE_points(hit number(1, 0), rn_ number(10, 0) not null, id number(19, 0), r float(53), user_id number(19, 0), x float(53), y float(53), primary key (rn_)) 
+        on commit delete rows
+Hibernate: 
+    create global temporary table HTE_points(hit number(1, 0), rn_ number(10, 0) not null, id number(19, 0), r float(53), user_id number(19, 0), x float(53), y float(53), primary key (rn_)) 
+        on commit delete rows
+2025-02-11T00:01:43.125+03:00  INFO 64168 --- [weblab4] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-11T00:01:45.249+03:00 DEBUG 64168 --- [weblab4] [    Test worker] org.hibernate.SQL                        : 
+    create table points (
+        id number(19,0) not null,
+        hit number(1,0) not null check (hit in (0,1)),
+        r float(53) not null,
+        user_id number(19,0) not null,
+        x float(53) not null,
+        y float(53) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table points (
+        id number(19,0) not null,
+        hit number(1,0) not null check (hit in (0,1)),
+        r float(53) not null,
+        user_id number(19,0) not null,
+        x float(53) not null,
+        y float(53) not null,
+        primary key (id)
+    )
+2025-02-11T00:01:45.931+03:00 DEBUG 64168 --- [weblab4] [    Test worker] org.hibernate.SQL                        : 
+    create table users (
+        id number(19,0) not null,
+        password varchar2(255 char) not null,
+        username varchar2(255 char) not null,
+        primary key (id)
+    )
+Hibernate: 
+    create table users (
+        id number(19,0) not null,
+        password varchar2(255 char) not null,
+        username varchar2(255 char) not null,
+        primary key (id)
+    )
+2025-02-11T00:01:46.152+03:00 DEBUG 64168 --- [weblab4] [    Test worker] org.hibernate.SQL                        : 
+    alter table if exists users 
+       drop constraint UK_r43af9ap4edm43mmtq01oddj6
+Hibernate: 
+    alter table if exists users 
+       drop constraint UK_r43af9ap4edm43mmtq01oddj6
+2025-02-11T00:01:46.205+03:00 DEBUG 64168 --- [weblab4] [    Test worker] org.hibernate.SQL                        : 
+    alter table if exists users 
+       add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username)
+Hibernate: 
+    alter table if exists users 
+       add constraint UK_r43af9ap4edm43mmtq01oddj6 unique (username)
+2025-02-11T00:01:47.020+03:00 DEBUG 64168 --- [weblab4] [    Test worker] org.hibernate.SQL                        : 
+    create sequence points_seq start with 1 increment by 50
+Hibernate: 
+    create sequence points_seq start with 1 increment by 50
+2025-02-11T00:01:47.333+03:00 DEBUG 64168 --- [weblab4] [    Test worker] org.hibernate.SQL                        : 
+    create sequence users_seq start with 1 increment by 50
+Hibernate: 
+    create sequence users_seq start with 1 increment by 50
+2025-02-11T00:01:47.911+03:00  INFO 64168 --- [weblab4] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-11T00:01:48.533+03:00  WARN 64168 --- [weblab4] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-11T00:01:48.617+03:00  INFO 64168 --- [weblab4] [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2025-02-11T00:01:49.754+03:00  INFO 64168 --- [weblab4] [    Test worker] s.i.l.Lab4BackendApplicationTests        : Started Lab4BackendApplicationTests in 12.725 seconds (process running for 14.273)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
