@@ -20,7 +20,7 @@ public class Point {
     @Column(nullable = false)
     private Double r;
     @Column(nullable = false)
-    private Boolean hit;
+    private Integer hit;
     @Column(nullable = false)
     private Long userId;
 }

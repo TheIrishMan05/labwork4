@@ -25,7 +25,7 @@ public class PointService {
 
     @Transactional
     public void insert(Point point) {
-        point.setHit(areaChecker.checkArea(point));
+        point.setHit(areaChecker.checkArea(point) ? 1 : 0);
         point.setUserId(getUserId());
         pointRepository.save(point);
     }
