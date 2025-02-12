@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserService {
     private JwtTokenUtil jwtTokenUtil;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -29,7 +30,7 @@ public class UserService {
         this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
     }
 
-    @Transactional
+
     public void registerUser(User user) throws BadCredentialsException {
         if(userRepository.existsByUsername(user.getUsername())) {
             throw new BadCredentialsException("Username is already taken");
@@ -37,7 +38,9 @@ public class UserService {
         User newUser = new User();
         newUser.setUsername(user.getUsername());
         newUser.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        System.out.println("Saving user: " + newUser);
         userRepository.save(newUser);
+        System.out.println("User saved!");
     }
 
     public Optional<String> login(User user) {

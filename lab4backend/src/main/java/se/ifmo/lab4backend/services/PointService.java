@@ -13,6 +13,7 @@ import se.ifmo.lab4backend.utils.AreaChecker;
 import java.util.List;
 
 @Service
+@Transactional
 public class PointService {
     private final AreaChecker areaChecker;
     private PointRepository pointRepository;
@@ -23,7 +24,6 @@ public class PointService {
         this.areaChecker = areaChecker;
     }
 
-    @Transactional
     public void insert(Point point) {
         point.setHit(areaChecker.checkArea(point) ? 1 : 0);
         point.setUserId(getUserId());
