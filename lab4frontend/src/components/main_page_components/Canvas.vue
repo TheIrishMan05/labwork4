@@ -157,18 +157,13 @@ export default {
 
       const dotX = this.canvas.width / 2 + rawX;
       const dotY = this.canvas.height / 2 - rawY;
-      if(this.checkPoint(valueX, valueY, this.valueR)) {
-        this.ctx.fillStyle = "green";
-      } else {
-        this.ctx.fillStyle = "red";
-      }
+      this.$emit('submit-data', {x: valueX,
+        y: valueY,
+        r: this.valueR});
       this.ctx.beginPath();
       this.ctx.arc(dotX, dotY, 3, 0, 2 * Math.PI);
       this.ctx.fill();
       this.ctx.closePath();
-      this.$emit('submit-data', {x: valueX,
-        y: valueY,
-        r: this.valueR});
     },
     drawPoint(x, y, r) {
       const scale = 30 * r;
@@ -176,33 +171,19 @@ export default {
       const cy = this.canvas.height / 2;
       const dotX = cx + (x / (r * 1.75)) * scale;
       const dotY = cy - (y / (r * 1.75)) * scale;
-      this.ctx.fillStyle = this.checkPoint(x, y, r) ? "green" : "red";
       this.ctx.beginPath();
       this.ctx.arc(dotX, dotY, 3, 0, 2 * Math.PI);
       this.ctx.fill();
       this.ctx.closePath();
     },
 
-    checkPoint(x, y, r) {
-      if (x >= 0 && y <= 0) {
-        return this.checkRectangle(x, y, r);
-      } else if (x >= 0 && y >= 0) {
-        return this.checkTriangle(x, y, r);
-      } else if (x <= 0 && y >= 0) {
-        return this.checkCircle(x, y, r);
+    changeColor(result) {
+      if(result === true) {
+        this.ctx.fillStyle = "green";
       } else {
-        return false;
+        this.ctx.fillStyle = "red";
       }
     },
-    checkTriangle(x, y, r) {
-      return y >= 2 * x - r && y <= r && x <= (r / 2);
-    },
-    checkCircle(x, y, r) {
-      return x ** 2 + y ** 2 <= (r / 2) ** 2;
-    },
-    checkRectangle(x, y, r) {
-      return x <= r && y >= -r;
-    }
   }
 };
 </script>

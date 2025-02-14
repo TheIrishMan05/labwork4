@@ -10,13 +10,11 @@
       </tr>
       </thead>
       <tbody>
-      <tr v-for="(point, index) in points" :key="index">
+      <tr v-for="point in points" :key="point.id">
         <td>{{ point.x }}</td>
         <td>{{ point.y }}</td>
         <td>{{ point.r }}</td>
-        <td :class="{success: point.result, fail: !point.result}">
-          {{ point.result ? 'True' : 'False' }}
-        </td>
+        <td>{{point.hit === '1' ? "Есть пробитие" : "Нет пробития"}}</td>
       </tr>
       </tbody>
     </table>
