@@ -6,7 +6,7 @@ import se.ifmo.lab4backend.models.Point;
 
 import java.util.List;
 
-
+@Repository
 public interface PointRepository extends CrudRepository<Point, Long> {
-    List<Point> findAllByUserId(long userId);
+    List<Point> findAllByUserId(Long userId);
 }

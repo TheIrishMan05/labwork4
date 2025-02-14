@@ -7,38 +7,42 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
-
 
 import java.security.Key;
 import java.util.Date;
+import java.util.List;
 
 @Service
 public class JwtTokenUtil {
     private final String SECRET_KEY;
 
-    private Key key;
-
-    public JwtTokenUtil(@Value("${jwt.secret}") String secretKey) {
-        this.SECRET_KEY = secretKey;
+    public JwtTokenUtil(@Value("${jwt.secret}") String SECRET_KEY) {
+        this.SECRET_KEY = SECRET_KEY;
     }
 
+
+    private Key key;
+
     @PostConstruct
-    public void initKey() {
-        if(SECRET_KEY == null || SECRET_KEY.isEmpty()) {
-            throw new IllegalArgumentException("Secret key is empty or null");
+    public void initializeKey() {
+        if (SECRET_KEY == null || SECRET_KEY.isEmpty()) {
+            throw new IllegalArgumentException("JWT Secret Key is not defined in application.properties");
         }
+
         key = Keys.hmacShaKeyFor(SECRET_KEY.getBytes());
     }
 
     public String generateToken(Long userId, String username) {
-        Date issuedAt = new Date();
-        long lifeTime = 86400000L;
-        Date expiration = new Date(issuedAt.getTime() + lifeTime);
+        Date now = new Date();
+        long expirationTime = 86400000;
+        Date expiration = new Date(now.getTime() + expirationTime);
         return Jwts.builder()
                 .setSubject(username)
                 .claim("userId", userId)
-                .setIssuedAt(issuedAt)
+                .setIssuedAt(now)
                 .setExpiration(expiration)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
@@ -62,14 +66,17 @@ public class JwtTokenUtil {
         return claims.getSubject();
     }
 
+    public List<GrantedAuthority> getRolesFromToken(String token) {
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+    }
+
     public Long getUserIdFromToken(String token) {
         Claims claims = Jwts.parser()
                 .setSigningKey(key)
                 .build()
                 .parseClaimsJws(token)
                 .getBody();
+
         return claims.get("userId", Long.class);
     }
-
-
 }

@@ -1,6 +1,5 @@
 package se.ifmo.lab4backend.controllers;
 
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +15,6 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
-@Log4j2
 public class UserController {
     private UserService userService;
 
@@ -26,10 +24,12 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody User user) {
-        log.info("Registering user: " + user);
+    public ResponseEntity<String> registerUser(@RequestParam String username, @RequestParam String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
         try {
-            userService.registerUser(user);
+            userService.register(user);
             return ResponseEntity.ok("User registered successfully");
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
@@ -37,8 +37,10 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user) {
-        log.info(user.toString());
+    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
         try {
             Optional<String> jwt = userService.login(user);
             if(jwt.isEmpty()) {
@@ -55,5 +57,4 @@ public class UserController {
         Authentication auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
-
 }

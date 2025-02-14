@@ -9,7 +9,7 @@ export default {
   name: 'CanvasComponent',
   props: {
     valueR: {
-      type: String,
+      type: Number,
       required: true,
     },
     points: {
@@ -166,10 +166,9 @@ export default {
       this.ctx.arc(dotX, dotY, 3, 0, 2 * Math.PI);
       this.ctx.fill();
       this.ctx.closePath();
-      const currR = this.valueR
-      this.$emit('submit-data', {valueX,
-        valueY,
-        currR});
+      this.$emit('submit-data', {x: valueX,
+        y: valueY,
+        r: this.valueR});
     },
     drawPoint(x, y, r) {
       const scale = 30 * r;

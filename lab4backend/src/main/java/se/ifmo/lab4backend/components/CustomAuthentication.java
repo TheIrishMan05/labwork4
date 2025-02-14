@@ -2,15 +2,16 @@ package se.ifmo.lab4backend.components;
 
 import lombok.Getter;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
 
 @Getter
 public class CustomAuthentication extends UsernamePasswordAuthenticationToken {
-    private Long userId;
+    private final Long userId;
 
-    public CustomAuthentication(String principal, Long userId) {
-        super(principal, null);
+    public CustomAuthentication(String principal, Long userId, Collection<? extends GrantedAuthority> authorities) {
+        super(principal, null, authorities);
         this.userId = userId;
     }
-
-
 }

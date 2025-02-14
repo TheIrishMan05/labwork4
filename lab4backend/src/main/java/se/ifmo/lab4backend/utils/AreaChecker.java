@@ -5,7 +5,6 @@ import se.ifmo.lab4backend.models.Point;
 
 @Component
 public class AreaChecker {
-
     public boolean checkArea(Point point) {
         double x = point.getX();
         double y = point.getY();

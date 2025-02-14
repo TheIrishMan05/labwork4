@@ -5,7 +5,7 @@ import axios from 'axios';
 export const useAuthStore = defineStore('auth', () => {
     const user = ref(null);
     const error = ref(null);
-    let tokenStorage = localStorage.getItem("token") || [];
+    let token = localStorage.getItem("token") || "";
 
     const fetchUser = async () => {
         try {
@@ -28,8 +28,8 @@ export const useAuthStore = defineStore('auth', () => {
                 { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
 
             if (response.status === 200) {
-                tokenStorage.push(response.data);
-                localStorage.setItem("token", JSON.stringify(tokenStorage));
+                token = response.data;
+                localStorage.setItem("token", JSON.stringify(token));
                 await fetchUser();
                 return { success: true };
             } else {

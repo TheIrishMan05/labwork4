@@ -1,10 +1,9 @@
 package se.ifmo.lab4backend.services;
 
-
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import se.ifmo.lab4backend.components.CustomAuthentication;
 import se.ifmo.lab4backend.models.Point;
 import se.ifmo.lab4backend.repositories.PointRepository;
@@ -13,29 +12,33 @@ import se.ifmo.lab4backend.utils.AreaChecker;
 import java.util.List;
 
 @Service
-@Transactional
 public class PointService {
+    private final PointRepository pointRepository;
     private final AreaChecker areaChecker;
-    private PointRepository pointRepository;
 
     @Autowired
-    public PointService(AreaChecker areaChecker, PointRepository pointRepository) {
+    public PointService(PointRepository pointRepository, AreaChecker areaChecker) {
         this.pointRepository = pointRepository;
         this.areaChecker = areaChecker;
     }
 
     public void insert(Point point) {
-        point.setHit(areaChecker.checkArea(point) ? 1 : 0);
-        point.setUserId(getUserId());
+        point.setHit(checkHit(point) ? '1' : '0');
+        point.setUserId(getCurrentUserId());
         pointRepository.save(point);
     }
 
-    public List<Point> getPointsByUserId() {
-        return pointRepository.findAllByUserId(getUserId());
+    public List<Point> findAllForCurrentUser() {
+        return pointRepository.findAllByUserId(getCurrentUserId());
     }
 
-    public Long getUserId() {
-        CustomAuthentication authentication = (CustomAuthentication) SecurityContextHolder.getContext().getAuthentication();
+    public boolean checkHit(Point point) {
+        return areaChecker.checkArea(point);
+    }
+
+    private Long getCurrentUserId() {
+        CustomAuthentication authentication =
+                (CustomAuthentication) SecurityContextHolder.getContext().getAuthentication();
         return authentication.getUserId();
     }
 }

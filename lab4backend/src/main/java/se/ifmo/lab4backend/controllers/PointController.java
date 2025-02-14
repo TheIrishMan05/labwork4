@@ -9,6 +9,7 @@ import se.ifmo.lab4backend.services.PointService;
 import se.ifmo.lab4backend.utils.Validator;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -25,19 +26,19 @@ public class PointController {
 
     @GetMapping("/user")
     public ResponseEntity<List<Point>> getAllPoints() {
-        List<Point> points = pointService.getPointsByUserId();
+        List<Point> points = pointService.findAllForCurrentUser();
         log.info(points.size() + ": amount of points for current user");
         return ResponseEntity.ok(points);
     }
 
     @PostMapping("/add")
-    public ResponseEntity<String> insert(@RequestBody Point point) {
+    public ResponseEntity<Map<String, Point>> insert(@RequestBody Point point) {
         log.info("Insert point: " + point);
         if(validator.validate(point)) {
             pointService.insert(point);
-            return ResponseEntity.ok(point.toString());
+            return ResponseEntity.ok(Map.of("point", point));
         } else {
-            return ResponseEntity.badRequest().body("Invalid Point");
+            return ResponseEntity.badRequest().body(Map.of("point", point));
         }
     }
 

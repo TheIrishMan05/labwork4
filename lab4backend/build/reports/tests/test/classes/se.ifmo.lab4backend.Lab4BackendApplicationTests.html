@@ -3,17 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 <meta http-equiv="x-ua-compatible" content="IE=edge"/>
-<title>Test results - Lab4BackendApplicationTests</title>
+<title>Test results - Lab4backendApplicationTests</title>
 <link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
 <link href="../css/style.css" rel="stylesheet" type="text/css"/>
 <script src="../js/report.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="content">
-<h1>Lab4BackendApplicationTests</h1>
+<h1>Lab4backendApplicationTests</h1>
 <div class="breadcrumbs">
 <a href="../index.html">all</a> &gt; 
-<a href="../packages/se.ifmo.lab4backend.html">se.ifmo.lab4backend</a> &gt; Lab4BackendApplicationTests</div>
+<a href="../packages/se.ifmo.lab4backend.html">se.ifmo.lab4backend</a> &gt; Lab4backendApplicationTests</div>
 <div id="summary">
 <table>
 <tr>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.717s</div>
+<div class="counter">0.838s</div>
 <p>duration</p>
 </div>
 </td>
@@ -79,7 +79,7 @@
 </thead>
 <tr>
 <td class="success">contextLoads()</td>
-<td class="success">0.717s</td>
+<td class="success">0.838s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -87,8 +87,8 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>12:34:55.072 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [se.ifmo.lab4backend.Lab4BackendApplicationTests]: Lab4BackendApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-12:34:55.227 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration se.ifmo.lab4backend.Lab4BackendApplication for test class se.ifmo.lab4backend.Lab4BackendApplicationTests
+<pre>19:58:28.439 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils -- Could not detect default configuration classes for test class [se.ifmo.lab4backend.Lab4backendApplicationTests]: Lab4backendApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+19:58:28.580 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper -- Found @SpringBootConfiguration se.ifmo.lab4backend.Lab4backendApplication for test class se.ifmo.lab4backend.Lab4backendApplicationTests
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -99,23 +99,31 @@
 
  :: Spring Boot ::                (v3.4.2)
 
-2025-02-12T12:34:55.745+03:00  INFO 74008 --- [lab4backend] [    Test worker] s.i.l.Lab4BackendApplicationTests        : Starting Lab4BackendApplicationTests using Java 17.0.8 with PID 74008 (started by grigo in C:\study\labs\web\labwork4\lab4backend)
-2025-02-12T12:34:55.747+03:00  INFO 74008 --- [lab4backend] [    Test worker] s.i.l.Lab4BackendApplicationTests        : No active profile set, falling back to 1 default profile: &quot;default&quot;
-2025-02-12T12:34:56.575+03:00  INFO 74008 --- [lab4backend] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2025-02-12T12:34:56.662+03:00  INFO 74008 --- [lab4backend] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 72 ms. Found 2 JPA repository interfaces.
-2025-02-12T12:34:57.345+03:00  INFO 74008 --- [lab4backend] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
-2025-02-12T12:34:57.422+03:00  INFO 74008 --- [lab4backend] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.4.2.Final
-2025-02-12T12:34:57.461+03:00  INFO 74008 --- [lab4backend] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
-2025-02-12T12:34:57.756+03:00  INFO 74008 --- [lab4backend] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
-2025-02-12T12:34:57.788+03:00  INFO 74008 --- [lab4backend] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2025-02-12T12:34:58.389+03:00  INFO 74008 --- [lab4backend] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@5273143e
-2025-02-12T12:34:58.390+03:00  INFO 74008 --- [lab4backend] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2025-02-12T12:34:58.600+03:00  WARN 74008 --- [lab4backend] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
-2025-02-12T12:34:59.619+03:00  INFO 74008 --- [lab4backend] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2025-02-12T12:34:59.623+03:00  INFO 74008 --- [lab4backend] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2025-02-12T12:35:00.151+03:00  WARN 74008 --- [lab4backend] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2025-02-12T12:35:00.189+03:00  INFO 74008 --- [lab4backend] [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
-2025-02-12T12:35:01.073+03:00  INFO 74008 --- [lab4backend] [    Test worker] s.i.l.Lab4BackendApplicationTests        : Started Lab4BackendApplicationTests in 5.674 seconds (process running for 7.153)
+2025-02-14T19:58:29.095+03:00  INFO 51996 --- [lab4backend] [    Test worker] s.i.l.Lab4backendApplicationTests        : Starting Lab4backendApplicationTests using Java 17.0.8 with PID 51996 (started by grigo in C:\study\labs\web\labwork4\lab4backend)
+2025-02-14T19:58:29.095+03:00  INFO 51996 --- [lab4backend] [    Test worker] s.i.l.Lab4backendApplicationTests        : No active profile set, falling back to 1 default profile: &quot;default&quot;
+2025-02-14T19:58:29.961+03:00  INFO 51996 --- [lab4backend] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-02-14T19:58:30.070+03:00  INFO 51996 --- [lab4backend] [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 91 ms. Found 2 JPA repository interfaces.
+2025-02-14T19:58:30.865+03:00  INFO 51996 --- [lab4backend] [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-02-14T19:58:30.941+03:00  INFO 51996 --- [lab4backend] [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.6.5.Final
+2025-02-14T19:58:30.994+03:00  INFO 51996 --- [lab4backend] [    Test worker] o.h.c.internal.RegionFactoryInitiator    : HHH000026: Second-level cache disabled
+2025-02-14T19:58:31.422+03:00  INFO 51996 --- [lab4backend] [    Test worker] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-02-14T19:58:31.455+03:00  INFO 51996 --- [lab4backend] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2025-02-14T19:58:31.896+03:00  INFO 51996 --- [lab4backend] [    Test worker] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection oracle.jdbc.driver.T4CConnection@3ca278bc
+2025-02-14T19:58:31.898+03:00  INFO 51996 --- [lab4backend] [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2025-02-14T19:58:32.185+03:00  WARN 51996 --- [lab4backend] [    Test worker] org.hibernate.orm.deprecation            : HHH90000025: OracleDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-02-14T19:58:32.360+03:00  INFO 51996 --- [lab4backend] [    Test worker] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 23.6
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-02-14T19:58:33.423+03:00  INFO 51996 --- [lab4backend] [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-02-14T19:58:34.801+03:00  INFO 51996 --- [lab4backend] [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-02-14T19:58:35.391+03:00  WARN 51996 --- [lab4backend] [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-02-14T19:58:35.439+03:00  INFO 51996 --- [lab4backend] [    Test worker] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with UserDetailsService bean with name userDetailsService
+2025-02-14T19:58:36.367+03:00  INFO 51996 --- [lab4backend] [    Test worker] s.i.l.Lab4backendApplicationTests        : Started Lab4backendApplicationTests in 7.607 seconds (process running for 9.039)
 </pre>
 </span>
 </div>
@@ -127,7 +135,7 @@
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 8.12.1</a> at 12 февр. 2025 г., 12:35:01</p>
+<a href="http://www.gradle.org">Gradle 8.12.1</a> at 14 февр. 2025 г., 19:58:37</p>
 </div>
 </div>
 </body>
