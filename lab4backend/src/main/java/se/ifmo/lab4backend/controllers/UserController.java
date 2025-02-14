@@ -8,6 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import se.ifmo.lab4backend.components.CustomAuthentication;
 import se.ifmo.lab4backend.models.User;
 import se.ifmo.lab4backend.services.UserService;
 
@@ -54,7 +55,11 @@ public class UserController {
     }
 
     private void setAuthContext(User user) {
-        Authentication auth = new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword());
+        CustomAuthentication auth = new CustomAuthentication(
+                user.getUsername(),
+                user.getId(),
+                user.getAuthorities()
+        );
         SecurityContextHolder.getContext().setAuthentication(auth);
     }
 }

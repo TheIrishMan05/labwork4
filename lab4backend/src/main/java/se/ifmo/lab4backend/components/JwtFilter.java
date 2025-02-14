@@ -9,7 +9,8 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 import se.ifmo.lab4backend.services.JwtTokenUtil;
 
@@ -19,25 +20,29 @@ import java.util.List;
 
 public class JwtFilter extends OncePerRequestFilter {
     private final JwtTokenUtil jwtTokenUtil;
+    private final UserDetailsService userDetailsService;
 
-    public JwtFilter(JwtTokenUtil jwtTokenUtil) {
+    public JwtFilter(JwtTokenUtil jwtTokenUtil, UserDetailsService userDetailsService) {
         this.jwtTokenUtil = jwtTokenUtil;
+        this.userDetailsService = userDetailsService;
     }
-
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain chain)
             throws ServletException, IOException {
+
         String authHeader = request.getHeader("Authorization");
 
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
-
 
             if (jwtTokenUtil.validateToken(token)) {
                 setAuthenticationContext(token);
             } else {
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().write("JWT токен невалидный или истекший");
+                return;
             }
         }
 
@@ -47,11 +52,14 @@ public class JwtFilter extends OncePerRequestFilter {
     private void setAuthenticationContext(String token) throws JwtException {
         String username = jwtTokenUtil.getUsernameFromToken(token);
         Long userId = jwtTokenUtil.getUserIdFromToken(token);
-        List<GrantedAuthority> authorities = jwtTokenUtil.getRolesFromToken(token);
+
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+
 
         Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
         if (currentAuth == null || currentAuth instanceof AnonymousAuthenticationToken) {
-            CustomAuthentication authentication = new CustomAuthentication(username, userId, authorities);
+            CustomAuthentication authentication =
+                    new CustomAuthentication(userDetails.getUsername(), userId, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
     }

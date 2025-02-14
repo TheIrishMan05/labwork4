@@ -16,7 +16,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import se.ifmo.lab4backend.components.AuthFilter;
 import se.ifmo.lab4backend.components.JwtFilter;
 import se.ifmo.lab4backend.repositories.UserRepository;
 import se.ifmo.lab4backend.services.JwtTokenUtil;
@@ -49,8 +48,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**", "/api/**").permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(new JwtFilter(jwtTokenUtil), UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(new AuthFilter(jwtTokenUtil, userDetailsService()), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(jwtTokenUtil, userDetailsService()), UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 
