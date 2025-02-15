@@ -52,9 +52,21 @@ export default {
   methods: {
 
     async handleSubmit(data) {
-      const response = await axios.post('http://localhost:8000/api/add', data);
-      const newPoint = response.data;
-      this.$refs.canvasComponent.drawPoint(data.x, data.y, data.r, newPoint.hit === '1');
+      const response = await axios.post('http://localhost:8000/api/add', data, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token') || ""}`
+        }
+      });
+      const newPoint = {
+        id: response.data.point.id,
+        x: response.data.point.x,
+        y: response.data.point.y,
+        r: response.data.point.r,
+        hit: response.data.point.hit,
+        userId: response.data.point.userId
+      };
+      console.log(newPoint);
+      this.$refs.canvasComponent.drawPoint(newPoint.x, newPoint.y, newPoint.r, newPoint.hit === 1);
       this.points.push(newPoint);
     },
 

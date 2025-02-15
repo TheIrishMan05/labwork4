@@ -26,7 +26,7 @@ public class PointService {
     }
 
     public void insert(Point point) {
-        point.setHit(checkHit(point) ? '1' : '0');
+        point.setHit(checkHit(point) ? 1 : 0);
         Long userId = getCurrentUserId();
         point.setUserId(userId);
         pointRepository.save(point);

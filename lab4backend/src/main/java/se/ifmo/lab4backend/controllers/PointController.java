@@ -1,10 +1,13 @@
 package se.ifmo.lab4backend.controllers;
 
+import io.jsonwebtoken.Jwt;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.ifmo.lab4backend.models.Point;
+import se.ifmo.lab4backend.services.JwtTokenUtil;
 import se.ifmo.lab4backend.services.PointService;
 import se.ifmo.lab4backend.utils.Validator;
 
@@ -17,11 +20,13 @@ import java.util.Map;
 public class PointController {
     private PointService pointService;
     private Validator validator;
+    private JwtTokenUtil jwtTokenUtil;
 
     @Autowired
-    public PointController(PointService pointService, Validator validator) {
+    public PointController(PointService pointService, Validator validator, JwtTokenUtil jwtTokenUtil) {
         this.pointService = pointService;
         this.validator = validator;
+        this.jwtTokenUtil = jwtTokenUtil;
     }
 
     @GetMapping("/user")
@@ -34,7 +39,8 @@ public class PointController {
     @PostMapping("/add")
     public ResponseEntity<Map<String, Point>> insert(@RequestBody Point point) {
         log.info("Insert point: " + point);
-        if(validator.validate(point)) {
+
+        if (validator.validate(point)) {
             pointService.insert(point);
             return ResponseEntity.ok(Map.of("point", point));
         } else {

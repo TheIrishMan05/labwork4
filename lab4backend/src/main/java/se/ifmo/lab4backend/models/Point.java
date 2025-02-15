@@ -27,7 +27,7 @@ public class Point {
     private double r;
 
     @Column(nullable = false)
-    private char hit;
+    private int hit;
 
     @Column(nullable = false)
     private Long userId;

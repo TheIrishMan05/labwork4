@@ -14,7 +14,7 @@
         <td>{{ point.x }}</td>
         <td>{{ point.y }}</td>
         <td>{{ point.r }}</td>
-        <td>{{point.hit === '1' ? "Есть пробитие" : "Нет пробития"}}</td>
+        <td>{{point.hit === 1 ? "Есть пробитие" : "Нет пробития"}}</td>
       </tr>
       </tbody>
     </table>

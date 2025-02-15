@@ -5,11 +5,14 @@ import axios from 'axios';
 export const useAuthStore = defineStore('auth', () => {
     const user = ref(null);
     const error = ref(null);
-    let token = localStorage.getItem("token") || "";
+    let token = ref(localStorage.getItem("token") || "");
 
     const fetchUser = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/user/");
+            const response = await axios.get("http://localhost:8000/api/user/",
+                {
+                    headers: { Authorization: `Bearer ${token.value}` }
+                });
             user.value = response.data;
             error.value = null;
         } catch (err) {
@@ -28,8 +31,8 @@ export const useAuthStore = defineStore('auth', () => {
                 { headers: { 'Content-Type': 'application/x-www-form-urlencoded' } });
 
             if (response.status === 200) {
-                token = response.data;
-                localStorage.setItem("token", JSON.stringify(token));
+                token.value = response.data.token;
+                localStorage.setItem("token", token.value);
                 await fetchUser();
                 return { success: true };
             } else {

@@ -87,11 +87,10 @@ export default {
   methods: {
     handleClick() {
       if (!this.validateAll()) return;
-
       this.$emit('submit-data', {
         x: parseFloat(this.x),
         y: parseFloat(this.y),
-        r: parseFloat(this.r)
+        r: parseFloat(this.r),
       });
 
       this.updatePlot();

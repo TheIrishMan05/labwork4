@@ -11,6 +11,7 @@ import se.ifmo.lab4backend.components.CustomAuthentication;
 import se.ifmo.lab4backend.models.User;
 import se.ifmo.lab4backend.services.UserService;
 
+import java.util.Map;
 import java.util.Optional;
 
 @Log4j2
@@ -38,7 +39,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String username, @RequestParam String password) {
+    public ResponseEntity<Map<String,String>> login(@RequestParam String username, @RequestParam String password) {
         User user = new User();
         user.setUsername(username);
         user.setPassword(password);
@@ -49,9 +50,9 @@ public class UserController {
             }
             Optional<User> registeredUser = userService.getUserByUsername(username);
             registeredUser.ifPresent(this::setAuthContext);
-            return ResponseEntity.ok(jwtOptional.get());
+            return ResponseEntity.ok(Map.of("token", jwtOptional.get()));
         } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("message", e.getMessage()));
         }
     }
 

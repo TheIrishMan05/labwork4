@@ -5,6 +5,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'CanvasComponent',
   props: {
@@ -156,7 +157,8 @@ export default {
       let valueY = (rawY / (this.canvas.height / 2) * this.valueR * 1.75);
       this.$emit('submit-data', {x: valueX,
         y: valueY,
-        r: this.valueR});
+        r: this.valueR,
+        });
     },
     drawPoint(x, y, r, result) {
       const scale = 30 * r;
