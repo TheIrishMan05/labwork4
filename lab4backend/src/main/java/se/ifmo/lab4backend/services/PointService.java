@@ -1,6 +1,7 @@
 package se.ifmo.lab4backend.services;
 
 import jakarta.transaction.Transactional;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,6 +14,7 @@ import se.ifmo.lab4backend.utils.AreaChecker;
 import java.util.List;
 
 @Service
+@Log4j2
 public class PointService {
     private final PointRepository pointRepository;
     private final AreaChecker areaChecker;
@@ -41,6 +43,8 @@ public class PointService {
 
     private Long getCurrentUserId() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        log.info("Authentication in PointService: {}", authentication);
+
         if (authentication == null) {
             throw new IllegalStateException("Пользователь не аутентифицирован: отсутствует объект аутентификации");
         }
@@ -49,4 +53,6 @@ public class PointService {
         }
         return ((CustomAuthentication) authentication).getUserId();
     }
+
+
 }

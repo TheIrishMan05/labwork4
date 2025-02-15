@@ -29,38 +29,47 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
-                                    FilterChain chain)
-            throws ServletException, IOException {
+                                    FilterChain chain) throws ServletException, IOException {
+        log.info("JwtFilter triggered for request: {}", request.getRequestURI());
 
         String authHeader = request.getHeader("Authorization");
-
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             String token = authHeader.substring(7);
+            log.info("Extracted JWT: {}", token);
 
             if (jwtTokenUtil.validateToken(token)) {
                 setAuthenticationContext(token);
             } else {
+                log.warn("Invalid JWT token");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
                 response.getWriter().write("JWT токен невалидный или истекший");
                 return;
             }
+        } else {
+            log.warn("No Authorization header found");
         }
 
+        log.info("Proceeding with filter chain");
         chain.doFilter(request, response);
     }
+
 
     private void setAuthenticationContext(String token) throws JwtException {
         String username = jwtTokenUtil.getUsernameFromToken(token);
         Long userId = jwtTokenUtil.getUserIdFromToken(token);
         List<GrantedAuthority> authorities = jwtTokenUtil.getRolesFromToken(token);
 
+        log.info("Setting authentication for user: {} (ID: {})", username, userId);
 
         Authentication currentAuth = SecurityContextHolder.getContext().getAuthentication();
-        log.info("currentAuth: {}, username: {}, userId: {}", currentAuth, username, userId);
+        log.info("Before setting: currentAuth = {}", currentAuth);
+
         if (currentAuth == null || currentAuth instanceof AnonymousAuthenticationToken) {
             CustomAuthentication authentication =
                     new CustomAuthentication(username, userId, authorities);
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            log.info("Authentication set: {}", authentication);
         }
     }
+
 }
