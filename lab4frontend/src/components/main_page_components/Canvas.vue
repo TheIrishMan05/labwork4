@@ -154,23 +154,17 @@ export default {
 
       let valueX = (rawX / (this.canvas.width / 2) * this.valueR * 1.75);
       let valueY = (rawY / (this.canvas.height / 2) * this.valueR * 1.75);
-
-      const dotX = this.canvas.width / 2 + rawX;
-      const dotY = this.canvas.height / 2 - rawY;
       this.$emit('submit-data', {x: valueX,
         y: valueY,
         r: this.valueR});
-      this.ctx.beginPath();
-      this.ctx.arc(dotX, dotY, 3, 0, 2 * Math.PI);
-      this.ctx.fill();
-      this.ctx.closePath();
     },
-    drawPoint(x, y, r) {
+    drawPoint(x, y, r, result) {
       const scale = 30 * r;
       const cx = this.canvas.width / 2;
       const cy = this.canvas.height / 2;
       const dotX = cx + (x / (r * 1.75)) * scale;
       const dotY = cy - (y / (r * 1.75)) * scale;
+      this.changeColor(result);
       this.ctx.beginPath();
       this.ctx.arc(dotX, dotY, 3, 0, 2 * Math.PI);
       this.ctx.fill();

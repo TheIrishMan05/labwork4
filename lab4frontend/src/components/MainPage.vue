@@ -21,7 +21,7 @@
     </div>
       <div id="page-container">
         <FormComponent
-            @submit-data="handleButtonSubmit"
+            @submit-data="handleSubmit"
             @update-plot="updatePlot"
         />
         <CanvasComponent ref="canvasComponent" :points="points" :value-r="currentR" @submit-data="handleSubmit"/>
@@ -50,15 +50,11 @@ export default {
     };
   },
   methods: {
-    async handleButtonSubmit(data) {
-      await this.handleSubmit(data);
-      this.$refs.canvasComponent.drawPoint(data.x, data.y, data.r);
-    },
 
     async handleSubmit(data) {
       const response = await axios.post('http://localhost:8000/api/add', data);
-      const newPoint = response.data.result;
-      this.$refs.canvasComponent.changeColor(newPoint.hit === '1');
+      const newPoint = response.data;
+      this.$refs.canvasComponent.drawPoint(data.x, data.y, data.r, newPoint.hit === '1');
       this.points.push(newPoint);
     },
 
