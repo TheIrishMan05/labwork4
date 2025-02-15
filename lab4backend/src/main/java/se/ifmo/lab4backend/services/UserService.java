@@ -23,10 +23,13 @@ public class UserService {
     }
 
     public Optional<String> login(User user) {
-        Optional<User> foundUser = userRepository.findByUsername(user.getUsername());
+        Optional<User> foundUser = getUserByUsername(user.getUsername());
         return foundUser.map(account -> jwtTokenUtil.generateToken(account.getId(), account.getUsername()));
     }
 
+    public Optional<User> getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
 
     public void register(User user) throws BadCredentialsException {
         if (userRepository.existsByUsername(user.getUsername())) {

@@ -2,6 +2,7 @@ package se.ifmo.lab4backend.services;
 
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import se.ifmo.lab4backend.components.CustomAuthentication;
@@ -24,12 +25,14 @@ public class PointService {
 
     public void insert(Point point) {
         point.setHit(checkHit(point) ? '1' : '0');
-        point.setUserId(getCurrentUserId());
+        Long userId = getCurrentUserId();
+        point.setUserId(userId);
         pointRepository.save(point);
     }
 
     public List<Point> findAllForCurrentUser() {
-        return pointRepository.findAllByUserId(getCurrentUserId());
+        Long userId = getCurrentUserId();
+        return pointRepository.findAllByUserId(userId);
     }
 
     public boolean checkHit(Point point) {
@@ -37,8 +40,13 @@ public class PointService {
     }
 
     private Long getCurrentUserId() {
-        CustomAuthentication authentication =
-                (CustomAuthentication) SecurityContextHolder.getContext().getAuthentication();
-        return authentication.getUserId();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null) {
+            throw new IllegalStateException("Пользователь не аутентифицирован: отсутствует объект аутентификации");
+        }
+        if (!(authentication instanceof CustomAuthentication)) {
+            throw new IllegalStateException("Аутентификация имеет неверный тип: ожидается CustomAuthentication");
+        }
+        return ((CustomAuthentication) authentication).getUserId();
     }
 }

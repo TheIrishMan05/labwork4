@@ -1,11 +1,10 @@
 package se.ifmo.lab4backend.controllers;
 
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import se.ifmo.lab4backend.components.CustomAuthentication;
@@ -14,10 +13,11 @@ import se.ifmo.lab4backend.services.UserService;
 
 import java.util.Optional;
 
+@Log4j2
 @RestController
 @RequestMapping("/auth")
 public class UserController {
-    private UserService userService;
+    private final UserService userService;
 
     @Autowired
     public UserController(UserService userService) {
@@ -43,23 +43,29 @@ public class UserController {
         user.setUsername(username);
         user.setPassword(password);
         try {
-            Optional<String> jwt = userService.login(user);
-            if(jwt.isEmpty()) {
+            Optional<String> jwtOptional = userService.login(user);
+            if (jwtOptional.isEmpty()) {
                 throw new BadCredentialsException("Invalid username or password");
             }
-            setAuthContext(user);
-            return ResponseEntity.ok(jwt.get());
+            Optional<User> registeredUser = userService.getUserByUsername(username);
+            registeredUser.ifPresent(this::setAuthContext);
+            return ResponseEntity.ok(jwtOptional.get());
         } catch (BadCredentialsException e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
     }
 
     private void setAuthContext(User user) {
-        CustomAuthentication auth = new CustomAuthentication(
+        log.info("AuthContext for user: " + user.getUsername() + ", " + user.getId());
+        if (user.getId() == null) {
+            return;
+        }
+        CustomAuthentication authentication = new CustomAuthentication(
                 user.getUsername(),
                 user.getId(),
                 user.getAuthorities()
         );
-        SecurityContextHolder.getContext().setAuthentication(auth);
+        log.info("Current authentication: {}, {}", authentication, authentication.getUserId());
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }
