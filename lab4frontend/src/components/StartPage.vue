@@ -104,7 +104,7 @@ body {
 #page-container {
   background-color: #397641;
   color: white;
-  width: 30%;
+  width: min(90%, 400px);
   height: 50%;
   display: grid;
   place-items: center;
@@ -345,6 +345,39 @@ body {
 .error {
   border-radius: 3px;
   background-color: firebrick;
+}
+
+@media (min-width: 1154px) {
+  #page-container {
+    width: 50%;
+  }
+}
+
+@media (min-width: 853px) and (max-width: 1154px) {
+  #page-container {
+    width: 80%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .button-container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 853px) {
+  .header h2, .header h3 {
+    font-size: 1rem;
+  }
+
+  .submit-button, .transfer-button {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .menu-list {
+    width: 100%;
+  }
 }
 
 </style>

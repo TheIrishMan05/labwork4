@@ -231,4 +231,50 @@ body {
 }
 
 
+@media (max-width: 853px) {
+  .page {
+    flex-direction: column;
+    padding-top: 15%;
+  }
+
+  #page-container {
+    width: 100%;
+    padding: 20px;
+  }
+
+  .menu-list {
+    width: 30%;
+    text-align: center;
+  }
+
+  .menu-item {
+    font-size: 16px;
+  }
+
+  h2, h3 {
+    font-size: 1.2em;
+  }
+}
+
+@media (min-width: 853px) and (max-width: 1154px) {
+  #page-container {
+    width: 100%;
+  }
+
+  .menu-item {
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 1154px) {
+  #page-container {
+    width: 100%;
+  }
+
+  h2, h3 {
+    font-size: 2em;
+  }
+}
+
+
 </style>

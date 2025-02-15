@@ -232,4 +232,37 @@ input:focus {
   opacity: 1;
   transition: 0s
 }
+
+@media (min-width: 1154px) {
+  .form-group {
+    width: 100%;
+  }
+}
+
+@media (min-width: 853px) and (max-width: 1154px) {
+  .form-group {
+    width: 100%;
+    height: auto;
+    padding: 20px;
+  }
+
+  .button-container {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 853px) {
+  .header h2, .header h3 {
+    font-size: 1rem;
+  }
+
+  .submit-button {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .form-group{
+    width: 100%;
+  }
+}
 </style>
