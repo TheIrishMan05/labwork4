@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       currentR: null,
-      points: []
+      points: [],
     };
   },
   methods: {
@@ -72,7 +72,7 @@ export default {
 
     updatePlot(r) {
       this.currentR = r;
-    }
+    },
   }
 };
 </script>
@@ -269,10 +269,6 @@ body {
 @media (min-width: 1154px) {
   #page-container {
     width: 100%;
-  }
-
-  h2, h3 {
-    font-size: 2em;
   }
 }
 

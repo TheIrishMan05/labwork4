@@ -36,10 +36,8 @@ public class UserService {
             throw new BadCredentialsException("Такой пользователь уже существует!");
         }
 
-        User newUser = new User();
-        newUser.setUsername(user.getUsername());
-        newUser.setPassword(passwordEncoder.encode(user.getPassword()));
-        newUser.setRole(Role.USER);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole(Role.USER);
 
         userRepository.save(user);
     }
